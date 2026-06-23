@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Scroll Video</title>
+
+<style>
+body {
+  height: 5000px;
+  margin: 0;
+}
+
+#frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
+</head>
+<body>
+
+<img id="frame" src="frames/frame_001.webp">
+
+<script>
+const frameCount = 117;
+const img = document.getElementById("frame");
+
+window.addEventListener("scroll", () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollFraction = scrollTop / maxScroll;
+
+  const frameIndex = Math.min(
+    frameCount - 1,
+    Math.floor(scrollFraction * frameCount)
+  );
+
+  const frameNumber = String(frameIndex + 1).padStart(3, '0');
+
+  img.src = `frames/frame_${frameNumber}.webp`;
+});
+</script>
+
+</body>
+</html>
